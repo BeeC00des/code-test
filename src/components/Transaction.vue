@@ -1,5 +1,5 @@
 <template>
-	<tbody class="text-center text-black w-full">
+	
 	<tr class="pb-3 h-10 border-2 ">
 		<td class="text-base text-black font-medium">
 			<input type="checkbox" class="" /> <span class="px-3">08-Apr-22</span>
@@ -35,7 +35,7 @@
 			</span>
 		</td>
 	</tr>
-	<tr v-for="payment in transaction.paymentHistories" :key="payment" class="h-10">
+	<!-- <tr v-for="payment in transaction.paymentHistories" :key="payment" class="h-10">
 			<td>
 				<small>{{ payment.paymentDate }}</small>
 			</td>
@@ -48,8 +48,7 @@
 			<td class="text-yellow-500">
 				{{ payment.paymentMethod }}
 			</td>
-		</tr>
-	</tbody>
+	</tr> -->
 </template>
 <script setup>
 	const props = defineProps({

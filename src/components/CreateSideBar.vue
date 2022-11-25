@@ -3,7 +3,7 @@
         <div class="flex justify-between">
             <img src="../assets/Noja360-Logo-transparent.png" alt="logo"/>
             
-            <button @click="say('hello')" class="text-gray-800 font-bold py-2 px-5 rounded inline-flex items-center">
+            <button @click="toggleSideBar()" class="text-gray-800 font-bold py-2 px-5 rounded inline-flex items-center">
                 <img src="../assets/Frame 1333.png" alt="menu"/>
             </button>
         </div>
@@ -33,9 +33,10 @@ data() {
 },
 
 methods: {
-  say(message) {
-    alert(message)
-  }
+  toggleSideBar() {
+    
+  },
+ 
 }
 }
 </script>

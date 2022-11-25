@@ -1,7 +1,7 @@
 <template>
 	<div class="flex Content-section">
 		<SideBar />
-
+		<ExpenseModal ref="modal"/>
 		<div class="m-10">
 			<div>
 				<h2 class="text-2xl font-bold pb-6">
@@ -98,17 +98,15 @@
 					class="pagination flex justify-center items-center h-12 py-3 my-3"
 				>
 					<a href="#">&laquo; Prev</a>
-					<a href="#">1</a>
-					<a class="active" href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a href="#">6</a>
-					<a href="#"> Next &raquo; </a>
+					<a @click="nextPage(1)">1</a>
+					<a class="active" @click="nextPage(2)">2</a>
+					<a @click="nextPage(3)">3</a>
+					<a @click="nextPage(4)">4</a>
+					<a @click="nextPage(5)">5</a>
+					<a @click="nextPage(6)">6</a>
+					<a> Next &raquo; </a>
 				</div>
-			</div>
-
-			<ExpenseModal ref="modal" />
+			</div>	
 		</div>
 	</div>
 </template>
@@ -134,7 +132,9 @@
 		action: "getTransaction",
 		page: 1,
 	});
+
 	function nextPage(page) {
+		paginator.value.page = page;
 		if (paginator.value.action == "getTransaction") getTransactions();
 		else if (paginator.value.action == "sort") sort();
 		else if (paginator.value.action == "search") search();
@@ -146,6 +146,7 @@
 		}, []);
 		console.log(transactions.value);
 	}
+
 	function getTransactions() {
 		paginator.value.action = "getTransaction";
 		const config = {
@@ -159,14 +160,14 @@
 				limit: 100,
 				sort: "purchase_date",
 				sortDirection: "desc",
-				searchTerm: searchVal.value,
+				
 			},
 		};
 		axios
 			.request(config)
 			.then((res) => {
 				const data = res.data;
-				// console.log("Transactions: ", data.data.transactions);
+				console.log("Transactions: ", data.data.transactions);
 				if (data.code == 200) {
 					setTransactions(data.data.transactions);
 				}
@@ -189,7 +190,7 @@
 				params: {
 					page: paginator.value.page,
 					limit: 100,
-					searchTerm: "f",
+					searchTerm: searchVal.value,
 				},
 			},
 		};
@@ -197,7 +198,7 @@
 			.request(config)
 			.then((res) => {
 				const data = res.data;
-				// console.log("Transactions: ", data.data.transactions);
+				console.log("Transactions: ", data.data.transactions);
 				if (data.code == 200) {
 					setTransactions(data.data.transactions);
 				}
@@ -240,11 +241,8 @@
 				// loadingPredictions.value = false;
 			});
 	}
-	function addExpense(message) {
-		alert(message);
-	}
+
 	function showModal() {
-		console.log(modal.value);
 		modal.value.showModal();
 	}
 	onMounted(() => {
